@@ -4,8 +4,8 @@ const router = require('express').Router()
 
 router.post("/api/orden/crear", crearOrden)
 router.get("/api/ordenes", obtenerTodasLasOrdenes)
-router.get("/api/orden", obtenerOrdenPorId)
-router.put("/api/orden/actualizar", actualizarOrden)
-router.delete("/api/orden/eliminar", eliminarOrden)
+router.get("/api/orden/:id", obtenerOrdenPorId)
+router.put("/api/orden/actualizar/:id", actualizarOrden)
+router.delete("/api/orden/eliminar/:id", eliminarOrden)
 
 module.exports = router

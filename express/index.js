@@ -8,14 +8,14 @@ app.use(express.json())
 
 app.use(router)
 app.get("/", (req, res) => {
-  res.send("hola mundo")
+  res.send("Inicio")
 });
 
 //probando la conexión a la base de datos
 (async () => {
   try {
     await db.authenticate()
-    console.log("fine")
+    console.log("Database authenticated")
   } catch (error) {
     console.log("ERROR: ", error)
   }
