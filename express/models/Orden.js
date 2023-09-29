@@ -5,7 +5,8 @@ const Orden = sequelize.define("Orden", {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   nombreCliente: {
     type: DataTypes.STRING,
