@@ -1,10 +1,11 @@
-const { Orden } = require('../models');
+const Orden = require('../models/Orden.js');
 
 // Crear una nueva orden
 async function crearOrden(req, res) {
+  
   try {
     const { nombreCliente, total } = req.body;
-    const orden = await Orden.crear({ nombreCliente, total });
+    const orden = await Orden.create({ nombreCliente, total });
     res.status(201).json(orden);
   } catch (error) {
     console.error(error);
@@ -15,7 +16,7 @@ async function crearOrden(req, res) {
 // Obtener todas las órdenes
 async function obtenerTodasLasOrdenes(req, res) {
   try {
-    const ordenes = await Orden.find();
+    const ordenes = await Orden.findAll();
     res.json(ordenes);
   } catch (error) {
     console.error(error);
@@ -27,7 +28,7 @@ async function obtenerTodasLasOrdenes(req, res) {
 async function obtenerOrdenPorId(req, res) {
   try {
     const ordenId = req.params.id;
-    const orden = await Orden.find(ordenId);
+    const orden = await Orden.findByPk(ordenId);
 
     if (!orden) {
       res.status(404).json({ mensaje: 'Orden no encontrada' });
@@ -50,7 +51,6 @@ async function actualizarOrden(req, res) {
 
     if (!orden) {
       res.status(404).json({ mensaje: 'Orden no encontrada' });
-      return;
     }
 
     orden.nombreCliente = nombreCliente;
@@ -74,11 +74,20 @@ async function eliminarOrden(req, res) {
       res.status(404).json({ mensaje: 'Orden no encontrada' });
       return;
     }
-
-    await orden.delete();
+    
+    await orden.destroy();
     res.json({ mensaje: 'Orden eliminada' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: 'Error en el servidor' });
   }
+}
+
+
+module.exports = {
+  crearOrden: crearOrden,
+  obtenerTodasLasOrdenes: obtenerTodasLasOrdenes,
+  obtenerOrdenPorId: obtenerOrdenPorId,
+  actualizarOrden: actualizarOrden,
+  eliminarOrden: eliminarOrden
 }

@@ -1,10 +1,12 @@
 const express = require("express")
 const db = require('./db/db.js')
+const router = require("./routers/ordenRouter.js")
 
 const app = express()
 
 app.use(express.json())
 
+app.use(router)
 app.get("/", (req, res) => {
   res.send("hola mundo")
 });
